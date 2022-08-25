@@ -1,4 +1,4 @@
-# Databricks notebook source
+
 # MAGIC %md
 # MAGIC 
 # MAGIC This notebook is to demonstrate wrapping a stream definition in a class and executing in a parent notebook.
