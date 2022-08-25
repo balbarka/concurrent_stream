@@ -1,10 +1,3 @@
-# Databricks notebook source
-# MAGIC %md
-# MAGIC 
-# MAGIC This notebook is to demonstrate wrapping a stream definition in a class and executing in a parent notebook.
-
-# COMMAND ----------
-
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, lit
 
@@ -38,17 +31,3 @@ class Stream_b:
     
   def demo_cleanup(self):
     self.spark.sql("DROP TABLE IF EXISTS concurrent.tbl_b_class")
-  
-
-# COMMAND ----------
-
-# Example code for running the class
-
-# stream_b = Stream_b()
-# stream_b.demo_initialize()
-# stream_b.start()
-
-# COMMAND ----------
-
-# stream_b.streamingQuery.awaitTermination(60)
-# stream_b.streamingQuery.stop()
