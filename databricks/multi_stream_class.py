@@ -1,6 +1,20 @@
 # Databricks notebook source
 # MAGIC %sh
-# MAGIC head -n5 /Workspace/Repos/brad.barker@databricks.com/concurrent_stream/databricks/streaming/stream_A_class
+# MAGIC head -n5 /Workspace/Repos/brad.barker@databricks.com/concurrent_stream/databricks/streaming/stream_A_class.py
+
+# COMMAND ----------
+
+import imp
+mdl_a = imp.load_source('stream_A','/Workspace/Repos/brad.barker@databricks.com/concurrent_stream/databricks/streaming/stream_A_class.py')
+mdl_b = imp.load_source('stream_B','/Workspace/Repos/brad.barker@databricks.com/concurrent_stream/databricks/streaming/stream_B_class.py')
+
+# COMMAND ----------
+
+stream_a = mdl_a.Stream_a()
+
+# COMMAND ----------
+
+stream_A = stream_A.Stream_A()
 
 # COMMAND ----------
 

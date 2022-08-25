@@ -1,10 +1,3 @@
-
-# MAGIC %md
-# MAGIC 
-# MAGIC This notebook is to demonstrate wrapping a stream definition in a class and executing in a parent notebook.
-
-# COMMAND ----------
-
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, lit
 
@@ -38,17 +31,3 @@ class Stream_a:
     
   def demo_cleanup(self):
     self.spark.sql("DROP TABLE IF EXISTS concurrent.tbl_a_class")
-  
-
-# COMMAND ----------
-
-# Example code for running the class
-
-# stream_a = Stream_a()
-# stream_a.demo_initialize()
-# stream_a.start()
-
-# COMMAND ----------
-
-# stream_a.streamingQuery.awaitTermination(60)
-# stream_a.streamingQuery.stop()
