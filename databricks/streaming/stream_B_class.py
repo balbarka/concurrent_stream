@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, lit
+import subprocess
 
 class Stream_b:
   
@@ -31,3 +32,4 @@ class Stream_b:
     
   def demo_cleanup(self):
     self.spark.sql("DROP TABLE IF EXISTS concurrent.tbl_b_class")
+    subprocess.call("rm -rf /dbfs/tmp/checkpoint/stream_b_class", shell=True)

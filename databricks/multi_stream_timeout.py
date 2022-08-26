@@ -5,16 +5,26 @@
 
 # COMMAND ----------
 
+nb_path = '/'.join(dbutils.notebook.entry_point.getDbutils().notebook().getContext().notebookPath().get().split('/')[:-1] + ['streaming', 'stream_A_timeout'])
+nb_path
+
+# COMMAND ----------
+
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 
 def runStream(stream_nb_name):
-  nb_path = '/'.join(dbutils.notebook.entry_point.getDbutils().notebook().getContext().notebookPath().get().split('/')[:-2] + [stream_nb_name,])
+  nb_path = '/'.join(dbutils.notebook.entry_point.getDbutils().notebook().getContext().notebookPath().get().split('/')[:-1] + ['streaming', stream_nb_name])
   dbutils.notebook.run(nb_path, 80)
   
 stream_nb_names = ['stream_A_timeout', 'stream_B_timeout']
 
 with ThreadPoolExecutor() as executor:
     results = executor.map(runStream, stream_nb_names)
+
+# COMMAND ----------
+
+import time
+time.sleep(30)
 
 # COMMAND ----------
 
@@ -46,6 +56,8 @@ with ThreadPoolExecutor() as executor:
 
 # COMMAND ----------
 
-# MAGIC %sql
-# MAGIC DROP TABLE IF EXISTS concurrent.tbl_a_timeout;
-# MAGIC DROP TABLE IF EXISTS concurrent.tbl_b_timeout;
+import subprocess
+spark.sql("DROP TABLE IF EXISTS concurrent.tbl_a_timeout")
+subprocess.call("rm -rf /dbfs/tmp/checkpoint/stream_a_class", shell=True)
+spark.sql("DROP TABLE IF EXISTS concurrent.tbl_a_class")
+subprocess.call("rm -rf /dbfs/tmp/checkpoint/stream_a_class", shell=True)

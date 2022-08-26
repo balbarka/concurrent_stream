@@ -35,3 +35,7 @@ write_a = stream_a.writeStream \
 
 write_a.awaitTermination(30)
 write_a.stop()
+
+# COMMAND ----------
+
+
