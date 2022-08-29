@@ -17,6 +17,8 @@
 
 from pyspark.sql.functions import col, lit
 
+spark.sparkContext.setLocalProperty("spark.scheduler.pool", "poolA")
+
 dbutils.fs.rm('dbfs:/tmp/checkpoint/stream_a_timeout', True)
 stream_a = spark.readStream \
                 .format("rate") \
@@ -27,6 +29,7 @@ stream_a = spark.readStream \
 # COMMAND ----------
 
 write_a = stream_a.writeStream \
+                  .queryName("stream_a") \
                   .option("checkpointLocation", "dbfs:/tmp/checkpoint/stream_a_timeout") \
                   .trigger(processingTime='10 seconds') \
                   .toTable("concurrent.tbl_a_timeout")
